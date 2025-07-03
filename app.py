@@ -1,9 +1,12 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 @st.cache_resource
 def load_model():
+    if not os.path.exists("lgbm.pkl"):
+        st.stop()  # Stop if missing
     return joblib.load("lgbm.pkl")
 
 @st.cache_resource
