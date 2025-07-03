@@ -2,10 +2,21 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# Load model components
-model = joblib.load("lgbm.pkl")
-preprocessor = joblib.load("preprocessor.pkl")
-label_encoder = joblib.load("label_encoder.pkl")
+@st.cache_resource
+def load_model():
+    return joblib.load("lgbm.pkl")
+
+@st.cache_resource
+def load_preprocessor():
+    return joblib.load("preprocessor.pkl")
+
+@st.cache_resource
+def load_label_encoder():
+    return joblib.load("label_encoder.pkl")
+
+model = load_model()
+preprocessor = load_preprocessor()
+label_encoder = load_label_encoder()
 
 # List of games
 all_games = [
